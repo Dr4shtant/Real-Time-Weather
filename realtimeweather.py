@@ -1,6 +1,11 @@
 import requests
+import os
 
-def get_weather(city, api_key):
+def get_weather(city):
+    api_key = os.getenv('OPENWEATHER_API_KEY')  # Get the API key from environment variables
+    if not api_key:
+        raise ValueError("No API key found in environment variables. Please set the OPENWEATHER_API_KEY environment variable.")
+
     base_url = "http://api.openweathermap.org/data/2.5/weather"
     params = {
         'q': city,
@@ -15,22 +20,20 @@ def get_weather(city, api_key):
         temperature = data['main']['temp']
         humidity = data['main']['humidity']
         wind_speed = data['wind']['speed']
-        latitude = data['coord']['lon']
-        longitude = data['coord']['lat']
+        latitude = data['coord']['lat']
+        longitude = data['coord']['lon']
         pressure = data['main']['pressure']
         
         print(f"Weather in {city}: {weather}")
         print(f"Temperature: {temperature}°C")
         print(f"Humidity: {humidity}%")
-        print(f"Pressure: {pressure} bar")
+        print(f"Pressure: {pressure} hPa")
         print(f"Wind Speed: {wind_speed} m/s")
         print(f"Latitude: {latitude}")
         print(f"Longitude: {longitude}")
-
     else:
         print("Error:", data.get("message", "Unable to fetch weather data"))
 
-# Add your OpenWeatherMap API key in api_key
-api_key = 'f00275629d357c3e1df2ccbd6b2c2e77'
+
 city = input("Enter the city name: ")
-get_weather(city, api_key)
+get_weather(city)
