@@ -2,7 +2,7 @@ import requests
 import os
 
 def get_weather(city):
-    api_key = os.getenv('OPENWEATHER_API_KEY')  # Get the API key from environment variables
+    api_key = os.getenv('OPENWEATHER_API_KEY')  # Gets the API key from environment variables
     if not api_key:
         raise ValueError("No API key found in environment variables. Please set the OPENWEATHER_API_KEY environment variable.")
 
